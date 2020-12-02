@@ -1,0 +1,19 @@
+label{
+	font-size: 20px;
+	margin-right: 30px;
+}
+input[type="text"]{
+	width: 435px;
+	margin-left: 30px;
+}
+textarea{
+	max-height: 100px;
+}
+input[type="file" ]{
+	margin-left: 12px;
+}
+#btn{
+	margin-left: 130px;
+	width: 200px;
+	margin-bottom: 30px;
+}

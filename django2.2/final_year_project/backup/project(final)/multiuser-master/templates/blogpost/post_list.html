@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load humanize i18n static humanize %}
+{% block content %}
+
+<!-- Breadcrumb Section Begin -->
+    <div class="breacrumb-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-text">
+                        <a href="{% url 'home' %}"><i class="fa fa-home"></i> Home</a>
+                        <span>Posts</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Breadcrumb Section Begin -->
+
+<!-- Blog Section Begin -->
+<section class="blog-section spad" style="margin-top: -50px;">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-8 order-2 order-lg-1">
+        <div class="blog-sidebar">
+          <div class="search-form">
+            <h4>Search</h4>
+
+              <!-- Search item -->
+              <form method='GET' action=''>
+                  <input type='text' name='q' placeholder='Search posts' value='{{ request.GET.q }}'/>
+                  <button type="submit"><i class="fa fa-search" value='Search' ></i></button>
+              </form>
+              <!-- End Search -->
+
+          </div>
+          <div class="blog-catagory">
+            <h4>Categories</h4>
+              <ul>
+                <li><a href="#">Fashion</a></li>
+                <li><a href="#">Travel</a></li>
+                <li><a href="#">Picnic</a></li>
+                <li><a href="#">Model</a></li>
+              </ul>
+          </div>
+          <div class="recent-post">
+            <h4>Popular Post</h4>
+              <div class="recent-blog">
+                  <a href="#" class="rb-item">
+                    <div class="rb-pic">
+                      <img src="{% static 'img/blog/recent-1.jpg' %}" alt="">
+                    </div>
+                    <div class="rb-text">
+                      <h6>Great discount on women ware.</h6>
+                        <p>Fashion <span>- May 19, 2019</span></p>
+                    </div>
+                  </a>
+                  <a href="#" class="rb-item">
+                    <div class="rb-pic">
+                      <img src="{% static 'img/blog/recent-2.jpg' %}" alt="">
+                    </div>
+                    <div class="rb-text">
+                      <h6>Bad service on dilevery</h6>
+                      <p>Parth12 <span>- October 14, 2018</span></p>
+                    </div>
+                  </a>
+                  <a href="#" class="rb-item">
+                    <div class="rb-pic">
+                      <img src="{% static 'img/blog/recent-3.jpg' %}" alt="">
+                    </div>
+                    <div class="rb-text">
+                      <h6>The Personality Trait That Makes...</h6>
+                      <p>Shraddha <span>- January 1, 2019</span></p>
+                    </div>
+                  </a>
+                  <a href="#" class="rb-item">
+                    <div class="rb-pic">
+                      <img src="{% static 'img/blog/recent-4.jpg' %}" alt="">
+                    </div>
+                    <div class="rb-text">
+                      <h6>Lead the fashion world</h6>
+                      <p>Girl in the city <span>- March 25, 2019</span></p>
+                    </div>
+                  </a>
+              </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-9 order-1 order-lg-2" style="margin-top: -30px;">
+        <div class="row">
+
+          {% for post in object_list %}
+          <div class="col-lg-6 col-sm-6">
+            <div class="blog-item">
+              <a href="{% url 'blogpost:detail' post.slug %}">
+              <div class="bi-pic">
+
+                {% if post.image %}
+                <img src="{{ post.image.url }}" alt="">
+                {% endif %}
+
+              </div>
+              <div class="bi-text">
+                <p style="font-size: 20px;">
+                  Title :
+                  <a href="{% url 'blogpost:detail' post.slug %}" data-toggle="tooltip" data-placement="top" title="Add comments"><span style="color: black;">{{ post.title }}</span></a>
+                </p>
+                <br>
+                  <h4>{{ post.content }}</h4>
+                <p>
+                  <a href="{% url 'blogpost:user-posts' post.user.username %}" style="color: #e7ab3c;">{{ post.user.username }}
+                  </a>
+                  <span>- {{ post.date_posted|naturaltime  }}</span>
+                  <br><a href="{{ post.get_absolute_url }}#disqus_thread">Post a comment</a>
+                </p>
+              </div>
+            </a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer Section Begin -->
+<footer class="footer-section" style="margin-top: -55px;">
+  <div class="copyright-reserved">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="copyright-text">
+            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">BiZZ ME</a>
+          </div>
+          <div class="payment-pic">
+            <img src="{% static 'img/payment-method.png' %}" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% endblock content %}
+
+

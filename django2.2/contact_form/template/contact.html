@@ -1,0 +1,101 @@
+{% load static %}
+{% load materializecss %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+        <script src="{% static 'noUiSlider-14.6.0/src/nouislider.js' %}"></script>
+
+        <script src="{% static 'wnumb-1.2.0/wNumb.js' %}"></script>
+        <script src="{% static 'wnumb-1.2.0/wNumb.min.js' %}"></script>
+    </head>
+    <title>Contact Form</title>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div class="container" style="background-color: #E6F8FE; margin-top: 20px; box-sizing: border-box; border: 16px solid #DCF5FE">
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'success'%}
+                    <script>M.toast({html: "{{message}}", classes: 'green rounded', displayLength:7000});</script>
+                    {% elif message.tags == 'info'%}
+                    <script>M.toast({html: "{{message}}", classes: 'blue rounded', displayLength:7000});</script>
+                    {% elif message.tags == 'warning'%}
+                    <script>M.toast({html: "{{message}}", classes: 'orange rounded', displayLength:10000});</script>
+                    {% elif message.tags == 'error'%}
+                    <script>M.toast({html: "{{message}}", classes: 'red rounded', displayLength:10000});</script>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+        <form method="POST" action="." novalidate>
+            {% csrf_token %}
+            {# {{ form|materializecss }} #}
+            <div class="row">
+                <div class="row">
+                    <div class="input-field col s12">
+                        <!-- <input id="name" type="text" class="validate"> -->
+                        {{ form.name|materializecss }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6" style="margin-top: -40px;">
+                        {{ form.email|materializecss }}
+                    </div>
+                    <div class="input-field col s6" style="margin-top: -40px;">
+                        {{ form.phone_number|materializecss }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12" style="margin-top: -40px;">
+                        {{ form.company_website|materializecss }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12" style="margin-top: -40px;">
+                        {{ form.company_challenge|materializecss }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="title">2. What are you looking to work on?</div>
+                    <div class="input-field col s12" style="margin-top: -20px;">
+                        {{ form.project_briefly|materializecss }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="test-slider"></div>
+                </div>
+            </div>
+            <button class="btn btn-primary btn-large" type="submit">Submit</button>
+        </form>
+        </div><!-- ./container -->
+        <div style="height:500px"></div>
+        <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script>
+        var sliderFormat = document.getElementById('test-slider');
+        noUiSlider.create(sliderFormat, {
+        start: [20000],
+        step: 1000,
+        range: {
+        'min': [20000],
+        'max': [80000]
+        },
+        format: wNumb({
+        decimals: 3,
+        thousand: '.',
+        suffix: ' (US $)'
+        })
+        });
+        </script>
+    </body>
+</html>
